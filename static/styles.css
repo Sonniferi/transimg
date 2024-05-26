@@ -82,7 +82,7 @@ button:hover {
     margin-top: 30px;
 }
 
-.pagination a {
+.pagination a, .pagination span {
     margin: 0 5px;
     text-decoration: none;
     color: #007BFF;

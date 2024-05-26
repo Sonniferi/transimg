@@ -26,8 +26,12 @@
                 <a href="{{ url_for('index', page=1) }}">First</a>
                 <a href="{{ url_for('index', page=page-1) }}">Previous</a>
             {% endif %}
-            {% for p in pages %}
-                <a href="{{ url_for('index', page=p) }}" class="{{ 'current' if p == page else '' }}">{{ p }}</a>
+            {% for p in page_range %}
+                {% if p == '...' %}
+                    <span>...</span>
+                {% else %}
+                    <a href="{{ url_for('index', page=p) }}" class="{{ 'current' if p == page else '' }}">{{ p }}</a>
+                {% endif %}
             {% endfor %}
             {% if page < total_pages %}
                 <a href="{{ url_for('index', page=page+1) }}">Next</a>
