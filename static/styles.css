@@ -50,7 +50,7 @@ button:hover {
 
 .items {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 15px;
 }
 
@@ -61,6 +61,8 @@ button:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: box-shadow 0.3s ease;
+    flex: 1 1 calc(25% - 30px);
+    box-sizing: border-box;
 }
 
 .item:hover {
@@ -102,24 +104,6 @@ button:hover {
     font-weight: bold;
     color: white;
     background-color: #007BFF;
-}
-
-.gallery {
-    column-count: 3;
-    column-gap: 20px;
-}
-
-.gallery img {
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 a {
