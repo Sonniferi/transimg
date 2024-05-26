@@ -1,0 +1,135 @@
+/* Reset some basic elements */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, a {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-form {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+input[type="text"] {
+    padding: 15px;
+    width: 70%;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 15px 25px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+.item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.item a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 18px;
+}
+
+.item a:hover {
+    color: #0056b3;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+.pagination a.current {
+    font-weight: bold;
+    color: white;
+    background-color: #007BFF;
+}
+
+.gallery {
+    column-count: 3;
+    column-gap: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+    display: inline-block;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
