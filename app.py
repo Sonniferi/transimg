@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import requests
+import random
 
 app = Flask(__name__)
 
@@ -9,7 +10,12 @@ titles = pd.read_csv('titles.csv')
 
 # Constants
 BASE_API_URL = "https://mzt.111404.xyz/api/nsfwid/"
-IMAGE_BASE_URL = "https://i2.wp.com/tgproxy2.1258012.xyz"
+IMAGE_SERVERS = [
+    "https://i0.wp.com/tgproxy2.1258012.xyz",
+    "https://i1.wp.com/tgproxy2.1258012.xyz",
+    "https://i2.wp.com/tgproxy2.1258012.xyz",
+    "https://i3.wp.com/tgproxy2.1258012.xyz"
+]
 
 
 @app.route('/')
@@ -38,7 +44,7 @@ def show_images(id):
     if response.status_code == 200:
         data = response.json()
         title = data[0]['title']
-        images = [IMAGE_BASE_URL + url for url in data[0]['urls']]
+        images = [f"{random.choice(IMAGE_SERVERS)}{url}" for url in data[0]['urls']]
         return render_template('images.html', title=title, images=images)
     else:
         return "Error: Could not retrieve images", 500
