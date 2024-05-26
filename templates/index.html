@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="search-form">
+            <form action="{{ url_for('search') }}" method="post">
+                <input type="text" name="query" placeholder="Enter search term" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="items">
+            {% for index, row in titles.iterrows() %}
+                <div class="item">
+                    <a href="{{ url_for('show_images', id=row['ID']) }}">{{ row['Title'] }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="{{ url_for('index', page=1) }}">First</a>
+                <a href="{{ url_for('index', page=page-1) }}">Previous</a>
+            {% endif %}
+            {% for p in pages %}
+                <a href="{{ url_for('index', page=p) }}" class="{{ 'current' if p == page else '' }}">{{ p }}</a>
+            {% endfor %}
+            {% if page < total_pages %}
+                <a href="{{ url_for('index', page=page+1) }}">Next</a>
+                <a href="{{ url_for('index', page=total_pages) }}">Last</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
