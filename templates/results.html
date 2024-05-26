@@ -3,22 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <title>Search Results for "{{ query }}"</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const id = item.dataset.id;
+                fetch(`/preview/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const img = item.querySelector('.preview-image');
+                        if (data.image_url) {
+                            img.src = data.image_url;
+                            img.style.display = 'block';
+                        } else {
+                            img.style.display = 'none';
+                        }
+                    });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Search Results for "{{ query }}"</h1>
         <div class="items">
-            {% if results %}
-                {% for result in results %}
-                    <div class="item">
-                        <a href="{{ url_for('show_images', id=result['ID']) }}">{{ result['Title'] }}</a>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No results found.</p>
-            {% endif %}
+            {% for result in results %}
+                <div class="item" data-id="{{ result['ID'] }}">
+                    <a href="{{ url_for('show_images', id=result['ID']) }}">
+                        <img src="" alt="Preview" class="preview-image" style="display: none;">
+                        <p>{{ result['Title'] }}</p>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
         <a href="{{ url_for('index') }}">Back to Home</a>
     </div>
