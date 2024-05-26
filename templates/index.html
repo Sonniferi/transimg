@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                const id = item.dataset.id;
+                fetch(`/preview/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const img = item.querySelector('.preview-image');
+                        if (data.image_url) {
+                            img.src = data.image_url;
+                            img.style.display = 'block';
+                        } else {
+                            img.style.display = 'none';
+                        }
+                    });
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -16,8 +35,11 @@
         </div>
         <div class="items">
             {% for index, row in titles.iterrows() %}
-                <div class="item">
-                    <a href="{{ url_for('show_images', id=row['ID']) }}">{{ row['Title'] }}</a>
+                <div class="item" data-id="{{ row['ID'] }}">
+                    <a href="{{ url_for('show_images', id=row['ID']) }}">
+                        <img src="" alt="Preview" class="preview-image" style="display: none;">
+                        <p>{{ row['Title'] }}</p>
+                    </a>
                 </div>
             {% endfor %}
         </div>
