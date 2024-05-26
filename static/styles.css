@@ -129,19 +129,21 @@ a:hover {
     color: #0056b3;
 }
 
-.image-grid {
-    column-count: 4;
-    column-gap: 15px;
+.image-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .image-item {
-    break-inside: avoid;
-    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
 }
 
 .image-item img {
     width: 100%;
-    height: auto;
+    max-width: 600px; /* 固定宽度 */
+    height: auto; /* 高度根据比例调整 */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
