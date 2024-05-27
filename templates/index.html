@@ -5,6 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-form input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-form button:hover {
+            background-color: #218838;
+        }
+        .daily-updates, .items {
+            margin-bottom: 20px;
+        }
+        .daily-updates .item {
+            width: calc(20% - 20px); /* 每日更新项目的宽度 */
+        }
+        .items .item {
+            width: calc(25% - 20px); /* 正常项目的宽度 */
+        }
+        .items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.2s;
+        }
+        .item:hover {
+            transform: scale(1.05);
+        }
+        .item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+        .item p {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .pagination {
+            text-align: center;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .pagination a.current {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+        .update-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .update-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffc107;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .update-form button:hover {
+            background-color: #e0a800;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const items = document.querySelectorAll('.item');
@@ -33,11 +141,24 @@
                 <button type="submit">Search</button>
             </form>
         </div>
+        <div class="daily-updates">
+            <h2>Daily Updates</h2>
+            <div class="items">
+                {% for index, row in daily_updates.iterrows() %}
+                    <div class="item" data-id="{{ row['ID'] }}">
+                        <a href="{{ url_for('show_images', id=row['ID']) }}">
+                            <img src="" alt="Preview" class="preview-image">
+                            <p>{{ row['Title'] }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
         <div class="items">
             {% for index, row in titles.iterrows() %}
                 <div class="item" data-id="{{ row['ID'] }}">
                     <a href="{{ url_for('show_images', id=row['ID']) }}">
-                        <img src="" alt="Preview" class="preview-image" style="display: none;">
+                        <img src="" alt="Preview" class="preview-image">
                         <p>{{ row['Title'] }}</p>
                     </a>
                 </div>
@@ -55,6 +176,11 @@
                 <a href="{{ url_for('index', page=page+1) }}">Next</a>
                 <a href="{{ url_for('index', page=total_pages) }}">Last</a>
             {% endif %}
+        </div>
+        <div class="update-form">
+            <form action="{{ url_for('update') }}" method="post">
+                <button type="submit">Manual Update</button>
+            </form>
         </div>
     </div>
 </body>
